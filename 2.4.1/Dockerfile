@@ -50,8 +50,6 @@ RUN cd src && tar -zxvf FileGDB_API_${FILEGDB_VERSION}-64gcc51.tar.gz && \
     cp -r FileGDB_API-64gcc51/include/* /usr/local/include && \
     ldconfig -v
 
-https://github.com/Esri/file-geodatabase-api/blob/master/FileGDB_API_1.5.1/FileGDB_API_1_5_1-64gcc51.tar.gz
-
 # Compile and install OpenJPEG
 RUN cd src && tar -xvf openjpeg-${OPENJPEG_VERSION}.tar.gz && cd openjpeg-${OPENJPEG_VERSION}/ \
     && mkdir build && cd build \
