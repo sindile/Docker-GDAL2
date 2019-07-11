@@ -18,8 +18,7 @@ WORKDIR $ROOTDIR/
 
 ADD http://download.osgeo.org/gdal/${GDAL_VERSION}/gdal-${GDAL_VERSION}.tar.gz $ROOTDIR/src/
 ADD https://github.com/uclouvain/openjpeg/archive/v${OPENJPEG_VERSION}.tar.gz $ROOTDIR/src/openjpeg-${OPENJPEG_VERSION}.tar.gz
-ADD https://github.com/Esri/file-geodatabase-api/blob/master/FileGDB_API_1.5.1/FileGDB_API_${FILEGDB_VERSION}-64gcc51.tar.gz $ROOTDIR/src/FileGDB_API_${FILEGDB_VERSION}-64gcc51.tar.gz
-
+ADD https://github.com/Esri/file-geodatabase-api/raw/master/FileGDB_API_1.5.1/FileGDB_API_${FILEGDB_VERSION}-64gcc51.tar.gz $ROOTDIR/src/FileGDB_API_${FILEGDB_VERSION}-64gcc51.tar.gz
 
 # Install basic dependencies
 RUN apt-get update -y && apt-get install -y \
