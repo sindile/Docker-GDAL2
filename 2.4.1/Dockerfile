@@ -18,7 +18,7 @@ WORKDIR $ROOTDIR/
 
 ADD http://download.osgeo.org/gdal/${GDAL_VERSION}/gdal-${GDAL_VERSION}.tar.gz $ROOTDIR/src/
 ADD https://github.com/uclouvain/openjpeg/archive/v${OPENJPEG_VERSION}.tar.gz $ROOTDIR/src/openjpeg-${OPENJPEG_VERSION}.tar.gz
-ADD https://github.com/Esri/file-geodatabase-api/blob/master/FileGDB_API_1.5.1/FileGDB_API_${FILEGDB_VERSION}-64gcc51.tar.gz $ROOTDIR/src/filegdb-${}.tar.gz
+ADD https://github.com/Esri/file-geodatabase-api/blob/master/FileGDB_API_1.5.1/FileGDB_API_${FILEGDB_VERSION}-64gcc51.tar.gz $ROOTDIR/src/FileGDB_API_${FILEGDB_VERSION}-64gcc51.tar.gz
 
 
 # Install basic dependencies
@@ -45,9 +45,6 @@ RUN apt-get update -y && apt-get install -y \
     cmake
     
 # Install File Geodatabase
-# https://stackoverflow.com/questions/48139517/filegdb-not-found-when-compiling-gdal-2-1-1-2-1-4-2-2-1
-#mkdir -p /provisioning/filegdb && \
-#curl -# -o ${FILEGDB_VERSION}-64gcc51.tar.gz ${FGDB_SOURCE} && \
 RUN cd src && tar -zxvf FileGDB_API_${FILEGDB_VERSION}-64gcc51.tar.gz && \
     cp -r FileGDB_API-64gcc51/lib/* /usr/local/lib && \
     cp -r FileGDB_API-64gcc51/include/* /usr/local/include && \
@@ -64,7 +61,7 @@ RUN cd src && tar -xvf openjpeg-${OPENJPEG_VERSION}.tar.gz && cd openjpeg-${OPEN
 
 # Compile and install GDAL
 RUN cd src && tar -xvf gdal-${GDAL_VERSION}.tar.gz && cd gdal-${GDAL_VERSION} \
-    && ./configure --with-python --with-spatialite --with-pg --with-curl --with-openjpeg \
+    && ./configure --with-python --with-spatialite --with-pg --with-curl --with-openjpeg --with-fgdb=$ROOTDIR/src/FileGDB_API-64gcc51 \
     && make -j $(nproc) && make install && ldconfig \
     && apt-get update -y \
     && cd $ROOTDIR && cd src/gdal-${GDAL_VERSION}/swig/python \
