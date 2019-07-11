@@ -58,7 +58,7 @@ RUN cd src && tar -xvf openjpeg-${OPENJPEG_VERSION}.tar.gz && cd openjpeg-${OPEN
 
 # Compile and install GDAL
 RUN cd src && tar -xvf gdal-${GDAL_VERSION}.tar.gz && cd gdal-${GDAL_VERSION} \
-    && ./configure --with-python --with-spatialite --with-pg --with-curl --with-openjpeg --with-fgdb=$ROOTDIR/src/FileGDB_API-64gcc51 \
+    && ./configure --with-python --with-spatialite --with-pg --with-curl --with-openjpeg --with-static-proj4 --with-fgdb=$ROOTDIR/src/FileGDB_API-64gcc51 \
     && make -j $(nproc) && make install && ldconfig \
     && apt-get update -y \
     && cd $ROOTDIR && cd src/gdal-${GDAL_VERSION}/swig/python \
